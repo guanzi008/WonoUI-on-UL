@@ -21,9 +21,5 @@ extern KnobState knob;
 void ui_param_init();
 //列表类页面列表行数初始化，必须初始化的参数
 void ui_init();
-void check_box_list_1_init();
-void check_box_list_1_select();
-void check_box_list_2_init();
-void check_box_list_2_select();
 
 #endif

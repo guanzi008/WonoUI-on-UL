@@ -48,7 +48,7 @@ struct TileState {
     float title_y_trg;
     float title_y_calc   = TILE_INDI_S + (TILE_INDI_H - TILE_B_TITLE_H) / 2 + TILE_B_TITLE_H * 2;
     float title_y_trg_calc = TILE_INDI_S + (TILE_INDI_H - TILE_B_TITLE_H) / 2 + TILE_B_TITLE_H;
-    float temp;
+    int16_t temp;
     bool select_flag;
 };
 
@@ -71,7 +71,7 @@ struct ListState {
     float bar_y_trg;
     bool loop;
     int line_n;
-    float temp;
+    int16_t temp;
 };
 
 //电压测量状态
@@ -88,7 +88,6 @@ struct VoltageState {
 
 //选择框状态
 struct CheckBoxState {
-    bool select[UI_MNUMB];
     uint8_t* v;
     uint8_t* m;
     uint8_t* s;

@@ -52,14 +52,3 @@ void ui_init() {
     ui.num[M_ABOUT] = 8;
 }
 
-void check_box_list_1_init() {
-}
-
-void check_box_list_1_select() {
-}
-
-void check_box_list_2_init() {
-}
-
-void check_box_list_2_select() {
-}
