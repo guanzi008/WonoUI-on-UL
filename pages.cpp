@@ -96,8 +96,9 @@ void list_draw_text_and_check_box(Menu* arr, int i) {
 /********************************* 分页面初始化函数 *********************************/
 
 //进入磁贴类时的初始化
-void tile_param_init() {
+void tile_param_init(bool unfold) {
     ui.init = false;
+    tile.ufd = unfold;
     tile.icon_x = 0;
     tile.icon_x_trg = TILE_ICON_S;
     tile.icon_y = -TILE_ICON_H;
@@ -106,6 +107,10 @@ void tile_param_init() {
     tile.indi_x_trg = TILE_INDI_W;
     tile.title_y = tile.title_y_calc;
     tile.title_y_trg = tile.title_y_trg_calc;
+    tile.select_flag = true;
+    if (!unfold) {
+        tile.icon_x = tile.icon_x_trg = -ui.select[ui.layer] * TILE_ICON_S;
+    }
     led_set_red();  // 进入主菜单时显示红色
 }
 
@@ -138,11 +143,12 @@ void tile_show(Menu* arr_1, Menu* arr_2, const uint8_t icon_pic[][16 * 18]) {
     //绘制图标
     if (!ui.init) {
         for (uint8_t i = 0; i < ui.num[ui.index]; ++i) {
-            if (ui.param[TILE_UFD]) tile.temp = (DISP_W - TILE_ICON_W) / 2 + i * tile.icon_x - TILE_ICON_S * ui.select[ui.layer];
+            if (!tile.ufd) tile.temp = (DISP_W - TILE_ICON_W) / 2 + tile.icon_x + i * TILE_ICON_S;
+            else if (ui.param[TILE_UFD]) tile.temp = (DISP_W - TILE_ICON_W) / 2 + i * tile.icon_x - TILE_ICON_S * ui.select[ui.layer];
             else tile.temp = (DISP_W - TILE_ICON_W) / 2 + (i - ui.select[ui.layer]) * tile.icon_x;
             u8g2.drawXBMP(tile.temp, (int16_t)tile.icon_y, TILE_ICON_W, TILE_ICON_H, icon_pic[i]);
         }
-        if (tile.icon_x == tile.icon_x_trg) {
+        if (tile.icon_x == tile.icon_x_trg && tile.icon_y == tile.icon_y_trg && tile.indi_x == tile.indi_x_trg && tile.title_y == tile.title_y_trg) {
             ui.init = true;
             tile.icon_x = tile.icon_x_trg = -ui.select[ui.layer] * TILE_ICON_S;
         }
@@ -815,7 +821,7 @@ void layer_init_out() {
         case M_MAIN:  
             buzzer_exit_sound();
             led_set_red();  // 返回主菜单时显示红色
-            tile_param_init(); 
+            tile_param_init(false); 
             break;
         default:
             buzzer_exit_sound();

@@ -42,6 +42,8 @@ void ui_param_init() {
 void ui_init() {
     ui.index = M_MAIN;      //启动时进入主菜单
     ui.state = S_LAYER_IN;  //触发层级初始化，调用tile_param_init设置动画初始值
+    list.line_n = DISP_H / LIST_LINE_H;
+    if (DISP_H % LIST_LINE_H) list.line_n++;
     ui.num[M_MAIN] = 4;
     ui.num[M_EDITOR] = 12;
     ui.num[M_KNOB] = 3;

@@ -14,7 +14,7 @@ void list_draw_check_box_frame();
 void list_draw_check_box_dot();
 void list_draw_krf(int n);
 void list_draw_kpf(int n);
-void tile_param_init();
+void tile_param_init(bool unfold = true);
 void tile_show(Menu* arr_1, Menu* arr_2, const uint8_t icon_pic[][16 * 18]);
 void list_rotate_switch();
 void list_show(Menu* arr, uint8_t ui_index);
